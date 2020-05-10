@@ -1,15 +1,27 @@
 # Book Learning 
 ## A collection of project/sample code in many languages from many books for many purposes.
 
+#### Not listed, but still loved:
+#### General 
+[Game Programming Patterns](https://gameprogrammingpatterns.com/) a very readable pattern book that critically evaulates, selects, and applies patterns to specific, real-world problems. The examples are focused on games (quite enjoyably) but the concepts are widely applicable.
+
+#### Haskell
+[Learn You a Haskell for the Greater Good](http://learnyouahaskell.com/) culminated in my goofier WIP haskell projects like [cria] and [capitol-quiz]
+[Parallel and Concurrent Programming in Haskell](https://simonmar.github.io/bib/papers/par-tutorial-cefp-2012.pdf) strongly influenced the my experiments in [quartz]
+
 ### Alphabetic breakdown by language family:
 
 ### BEAM Languages
 #### Elixir
 Coming soon, [Elixir in Action](https://www.manning.com/books/elixir-in-action-second-edition)
+
 #### Erlang
 ##### hello_joe
 Joe Armstrong's [Programming In Erlang](https://pragprog.com/book/jaerlang2/programming-erlang)
 Amazingly productive exercises, beginning with a file server and layering complexity from there.
+
+All contents are `.erl` files and can be interacted with via the instructions found [here](http://erlang.org/documentation/doc-5.3/doc/getting_started/getting_started.html).
+
 Incomplete, chapters vary between notes and exercises.
 
 ### Golang
@@ -40,9 +52,18 @@ Coming soon, [Clojure for the Brave and True](https://www.braveclojure.com/cloju
 
 #### Racket
 ##### Beautiful Racket
-A legitimate (and wildly successful) effort to [teach Language Developement](https://beautifulracket.com/) in Racket (the purported purpose of the language). Each subdirectory is a language. Using `racket` with the `beautiful-racket` packages installed to run the `<directory_name>-test.rkt` will run the more basic languages (`stacker`, `funstacker`, `stackerizer`).
-More detailed instructions for all languages found in the repository. (TODO: MAKE REAL OR PUT HERE)
-Incomplete, but each demo is self contained.
+A legitimate (and wildly successful) effort to [teach language developement](https://beautifulracket.com/) in Racket (the purported purpose of the language). Teaches profound lessons on lisp via the construction of 8 languages in varying degrees of sophistication.
+
+Running the languages require Racket and Beautiful Racket's package to be installed as described [here](https://beautifulracket.com/setup.html).
+
+`language_sandbox` contains the work done along side the book. It also contains `funstacker`, `stacker`, and `stackerizer`. Those languages can be tested via `<lang_name>-test.rkt`.
+
+`language_dist` contains more complex languages which can be installed via
+```shell
+cd beautiful_racket/laugauge_dist/<language_name>
+raco pkg install
+```
+Then feel free to run/modify the `example.rkt` files in the cooresponding `beautiful_racke/examples` language directory.
 
 ##### How To Design Programs
 A modern and excellent approach to teaching [programming from the ground up](https://htdp.org/). Naturally and silently promotes functional programming and test driven development by virtue of utilizing testing for project planning and functional style to make testing easy. Very, very clever and fun. Recommended for all skill levels!
@@ -52,6 +73,7 @@ Incomplete, hard to run/read without DrRacket, but I'll build out that virtual p
 The classic mind-expanding [MIT Text](https://web.mit.edu/alexmv/6.037/sicp.pdf). I know, I know, it's supposed to be written in `scheme`, but `racket` provides a wonderful language module specifically to complete this book -- and `racket` was already installed on my machine. Woefully incomplete, but I've watched the [MIT companion lectures](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/video-lectures/) and highly recommend those as well!
 
 ### Rust
+To run any Rust project, install Rust as described [here](https://www.rust-lang.org/tools/install). With rare exception, `cargo run` at the root of a chapter/project will run the program.
 
 #### The Rust Book
 The one, the only, [the Rust book](https://doc.rust-lang.org/book/). Starting with values and ownership, growing through type-level programming, and detouring through idiomaic style and ecosystem tooling, establishes everything one needs to know to confidently start building with Rust. It's a long journey, but it's clear enough (if going in knowing `haskell`, that is).
@@ -65,3 +87,5 @@ A free-wheeling and somewhat odd-ball project-based exploration of [WebAssembly 
 Others deviate signifcantly from what was provided in the text, because I got too opinionated about web development module packaging (and I'd do it again!). Progress stalled when I went on a journey to discover if you could run WASM in a WebWorker, thus never blocking the UI thread (you can, but it's not a well-worn path).
 
 Recommended if you have a strong interest in WebAssembly, this is still the best project/example-based introduction to WebAssembly out there. Not reccomended if you want all of the tooling to work nicely out of the box. The ecosystem is rough around the edges, and figuring out a work-flow that suites your tastes while still delivering the output that the author does is part of the fun/challenge of this text. To that end, I strong suggest taking a look at [wasm-pack](https://github.com/rustwasm/wasm-pack) before getting too deep into part 2 -- it's very nice.
+
+These examples are not easy to run.
