@@ -29,7 +29,11 @@ Incomplete, chapters vary between notes and exercises.
 ### Golang
 ##### Allen Downey's Little Book of Semaphores using Golang Select, Channels, and WaitGroups
 
-[The wonderful free book](https://greenteapress.com/wp/semaphores/) is the subject here where we endeavor to apply the flexible, consistant, and powerful concurrency tools of Golang to the delightful puzzles described. It is simple to run (and hopefully read!) the solutions to these puzzles.
+[This wonderful free book](https://greenteapress.com/wp/semaphores/) is on concurrent puzzles involving thread synchronization.  
+
+Instead of a direct translation of the source listed in the book (utilizing `python` and it's threaded parallelism structures), this repo utilizes the many lovely [CSP](http://usingcsp.com/cspbook.pdf) based structures available in `golang` -- most particularly, the `channel`, `goroutine`, `select`, and `waitgroup`.
+
+It is simple to run (and hopefully read!) the source, definitions, and solutions to these puzzles.
 
 Presuming you have [Golang installed](https://golang.org/doc/install) it's as simple as cloning the repository, opening the directory, and running:
 
@@ -46,6 +50,7 @@ $ go run main.go list 3 1 # List from the chapter of the first arg and the puzzl
 ```
 
 You could also `$ go install` but the binary executable will be quite a mouthful.
+
 Incomplete, but exercises are demo'd interactively!
 
 ### Lisp 
