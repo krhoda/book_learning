@@ -72,7 +72,7 @@ cd beautiful_racket/laugauge_dist/<language_name>
 raco pkg install
 ```
 
-Then feel free to run/modify the `example.rkt` files in the cooresponding `beautiful_racke/examples` language directory.
+Then feel free to run/modify the `example.rkt` files in the coresponding `beautiful_racke/examples` language directory.
 
 ##### How To Design Programs
 A modern and excellent approach to teaching [programming from the ground up](https://htdp.org/). 
