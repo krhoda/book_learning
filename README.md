@@ -6,8 +6,8 @@
 [Game Programming Patterns](https://gameprogrammingpatterns.com/) a very readable pattern book that critically evaulates, selects, and applies patterns to specific, real-world problems. The examples are focused on games (quite enjoyably) but the concepts are widely applicable.
 
 #### Haskell
-[Learn You a Haskell for the Greater Good](http://learnyouahaskell.com/) culminated in my goofier WIP haskell projects like [cria] and [capitol-quiz]
-[Parallel and Concurrent Programming in Haskell](https://simonmar.github.io/bib/papers/par-tutorial-cefp-2012.pdf) strongly influenced the my experiments in [quartz]
+[Learn You a Haskell for the Greater Good](http://learnyouahaskell.com/) culminated in my goofier WIP haskell projects like [cria](https://github.com/krhoda/cria) and [capitol-quiz](https://github.com/krhoda/capitol-quiz)
+[Parallel and Concurrent Programming in Haskell](https://simonmar.github.io/bib/papers/par-tutorial-cefp-2012.pdf) strongly influenced the my experiments in [quartz](https://github.com/krhoda/quartz)
 
 ### Alphabetic breakdown by language family:
 
