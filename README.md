@@ -7,6 +7,7 @@
 
 #### Haskell
 [Learn You a Haskell for the Greater Good](http://learnyouahaskell.com/) culminated in my goofier WIP haskell projects like [cria](https://github.com/krhoda/cria) and [capitol-quiz](https://github.com/krhoda/capitol-quiz)
+
 [Parallel and Concurrent Programming in Haskell](https://simonmar.github.io/bib/papers/par-tutorial-cefp-2012.pdf) strongly influenced the my experiments in [quartz](https://github.com/krhoda/quartz)
 
 ### Alphabetic breakdown by language family:
@@ -18,6 +19,7 @@ Coming soon, [Elixir in Action](https://www.manning.com/books/elixir-in-action-s
 #### Erlang
 ##### hello_joe
 Joe Armstrong's [Programming In Erlang](https://pragprog.com/book/jaerlang2/programming-erlang)
+
 Amazingly productive exercises, beginning with a file server and layering complexity from there.
 
 All contents are `.erl` files and can be interacted with via the instructions found [here](http://erlang.org/documentation/doc-5.3/doc/getting_started/getting_started.html).
@@ -59,24 +61,38 @@ Running the languages require Racket and Beautiful Racket's package to be instal
 `language_sandbox` contains the work done along side the book. It also contains `funstacker`, `stacker`, and `stackerizer`. Those languages can be tested via `<lang_name>-test.rkt`.
 
 `language_dist` contains more complex languages which can be installed via
+
 ```shell
 cd beautiful_racket/laugauge_dist/<language_name>
 raco pkg install
 ```
+
 Then feel free to run/modify the `example.rkt` files in the cooresponding `beautiful_racke/examples` language directory.
 
 ##### How To Design Programs
-A modern and excellent approach to teaching [programming from the ground up](https://htdp.org/). Naturally and silently promotes functional programming and test driven development by virtue of utilizing testing for project planning and functional style to make testing easy. Very, very clever and fun. Recommended for all skill levels!
+A modern and excellent approach to teaching [programming from the ground up](https://htdp.org/). 
+
+Naturally and silently promotes functional programming and test driven development by virtue of utilizing testing for project planning and functional style to make testing easy. Very, very clever and fun. Recommended for all skill levels!
+
 Incomplete, hard to run/read without DrRacket, but I'll build out that virtual pet game one day.
 
 ##### Structure and Interpretation of Computer Programs
-The classic mind-expanding [MIT Text](https://web.mit.edu/alexmv/6.037/sicp.pdf). I know, I know, it's supposed to be written in `scheme`, but `racket` provides a wonderful language module specifically to complete this book -- and `racket` was already installed on my machine. Woefully incomplete, but I've watched the [MIT companion lectures](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/video-lectures/) and highly recommend those as well!
+The classic mind-expanding [MIT Text](https://web.mit.edu/alexmv/6.037/sicp.pdf). 
+
+I know, I know, it's supposed to be written in `scheme`, but `racket` provides a wonderful language module specifically to complete this book -- and `racket` was already installed on my machine. Woefully incomplete, but I've watched the [MIT companion lectures](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/video-lectures/) and highly recommend those as well!
 
 ### Rust
-To run any Rust project, install Rust as described [here](https://www.rust-lang.org/tools/install). With rare exception, `cargo run` at the root of a chapter/project will run the program.
+To run any Rust project, install Rust as described [here](https://www.rust-lang.org/tools/install). 
+
+With rare exception, `cargo run` at the root of a chapter/project will run the program.
 
 #### The Rust Book
-The one, the only, [the Rust book](https://doc.rust-lang.org/book/). Starting with values and ownership, growing through type-level programming, and detouring through idiomaic style and ecosystem tooling, establishes everything one needs to know to confidently start building with Rust. It's a long journey, but it's clear enough (if going in knowing `haskell`, that is).
+The one, the only, [the Rust book](https://doc.rust-lang.org/book/). 
+
+Starting with values and ownership, growing through type-level programming, and detouring through idiomaic style and ecosystem tooling, it establishes everything one needs to know to confidently start building with Rust. 
+
+A long journey, but clear enough (if going in knowing `haskell`, that is).
+
 Complete. Every chapter contains notes and working examples.
 
 #### The Rustnomicon
@@ -84,8 +100,11 @@ Coming soon, [The Rustonomicon](https://doc.rust-lang.org/nomicon/). Less for th
 
 #### WASM
 A free-wheeling and somewhat odd-ball project-based exploration of [WebAssembly in Rust](https://pragprog.com/book/khrust/programming-webassembly-with-rust). Divided into 3 parts, code is arranged similarly, futher divided into projects. As they are presented in the text, some are not fully functional. 
+
 Others deviate signifcantly from what was provided in the text, because I got too opinionated about web development module packaging (and I'd do it again!). Progress stalled when I went on a journey to discover if you could run WASM in a WebWorker, thus never blocking the UI thread (you can, but it's not a well-worn path).
 
-Recommended if you have a strong interest in WebAssembly, this is still the best project/example-based introduction to WebAssembly out there. Not reccomended if you want all of the tooling to work nicely out of the box. The ecosystem is rough around the edges, and figuring out a work-flow that suites your tastes while still delivering the output that the author does is part of the fun/challenge of this text. To that end, I strong suggest taking a look at [wasm-pack](https://github.com/rustwasm/wasm-pack) before getting too deep into part 2 -- it's very nice.
+Recommended if you have a strong interest in WebAssembly, this is still the best project/example-based introduction to WebAssembly out there. Not reccomended if you want all of the tooling to work nicely out of the box. The ecosystem is rough around the edges, and figuring out a work-flow that suites your tastes while still delivering the same output that the author does is part of the fun/challenge of this text. 
+
+To that end, I strong suggest taking a look at [wasm-pack](https://github.com/rustwasm/wasm-pack) before getting too deep into part 2 -- it's very nice.
 
 These examples are not easy to run.
