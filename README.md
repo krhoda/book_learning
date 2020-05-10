@@ -31,11 +31,11 @@ Incomplete, chapters vary between notes and exercises.
 
 [This wonderful free book](https://greenteapress.com/wp/semaphores/) is on concurrent puzzles involving thread synchronization.  
 
-Instead of a direct translation of the source listed in the book (utilizing `python` and it's threaded parallelism structures), this repo utilizes the many lovely [CSP](http://usingcsp.com/cspbook.pdf) based structures available in `golang` -- most particularly, the `channel`, `goroutine`, `select`, and `waitgroup`.
+Instead of a direct translation of the source listed in the book (utilizing `python` and it's threaded parallelism structures), this module utilizes the many lovely [CSP](http://usingcsp.com/cspbook.pdf) based structures available in `golang` -- most particularly, the `channel`, `goroutine`, `select`, and `waitgroup`.
 
 It is simple to run (and hopefully read!) the source, definitions, and solutions to these puzzles.
 
-Presuming you have [Golang installed](https://golang.org/doc/install) it's as simple as cloning the repository, opening the directory, and running:
+Presuming you have [Golang installed](https://golang.org/doc/install) it's as simple as cloning the repository, opening the directory contianing the module (`book_learning/golang/little-book-of-channels`), and running:
 
 ``` shell
 $ go run main.go # See all commands.
