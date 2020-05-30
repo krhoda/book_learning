@@ -3,10 +3,10 @@
 
 (define (read-syntax path port) 
     (define parse-tree 
-        (parse path (make-tokenizer port path)
+        (parse path (make-tokenizer port path)))
     (strip-bindings 
-        #'(module basic-mod basic/expander
-            #,parse-tree)))))
+        #`(module basic-mod basic/expander
+            #,parse-tree)))
 
 (module+ reader 
     (provide read-syntax))
