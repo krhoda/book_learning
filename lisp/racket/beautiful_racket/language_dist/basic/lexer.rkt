@@ -3,6 +3,19 @@
 
 (define-lex-abbrev digits (:+ (char-set "0123456789")))
 
+;;; Reserve keywords.
+(define-lex-abbrev reserved-terms 
+    (:or 
+        "print"
+        "goto"
+        "end"
+        "+"
+        ":"
+        ";"
+        "let"
+        "="
+        "input"))
+
 (define basic-lexer
     (lexer-srcloc
         ;;; Catch meaningful whitespace first...
@@ -11,9 +24,11 @@
         [whitespace (token lexeme #:skip? #t)]
         ;;; Comments:
         [(from/stop-before "rem" "\n") (token 'REM lexeme)]
-        ;;; Operators:
-        [(:or "print" "goto" "end" "+" ":" ";")
-            (token lexeme lexeme)]
+        ;;; Keywords:
+        [reserved-terms (token lexeme lexeme)]
+        ;;; User defined vars:
+        [(:seq alphabetic (:* (:or alphabetic numeric "$")))
+            (token 'ID (string->symbol lexeme))]
         ;;; One digit:
         [digits (token 'INTEGER (string->number lexeme))]
         ;;; A sequence of possible floats numbers
