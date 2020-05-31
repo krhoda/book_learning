@@ -25,7 +25,17 @@ b-input : /"input" b-id
 
 ;;; Aliasing to allow conversion between BASIC and Racket Math.
 b-expr : b-sum
-b-sum : b-number (/"+" b-number)*
-@b-number : INTEGER | DECIMAL | b-id
+
+;;; NOTE: Trippy cascading order of operations here.
+;;; By matching outward in, and making operators optional,
+;;; It will natually default ot order of operations.
+;;; Or fall through to just a value.
+b-sum : [b-sum ("+"|"-")] b-product
+b-product : [b-product ("*"|"/"|"mod")] b-neg
+b-neg : ["-"] b-expt
+b-expt : [b-expt "^"] b-value
+
+@b-value : b-number | b-id | /"(" b-expr /")"
+@b-number : INTEGER | DECIMAL
 
 

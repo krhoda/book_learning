@@ -3,13 +3,19 @@
 
 (define-lex-abbrev digits (:+ (char-set "0123456789")))
 
-;;; Reserve keywords.
 (define-lex-abbrev reserved-terms 
     (:or 
         "print"
         "goto"
         "end"
         "+"
+        "-"
+        "*"
+        "/"
+        "^"
+        "mod"
+        "("
+        ")"
         ":"
         ";"
         "let"
