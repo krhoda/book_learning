@@ -9,4 +9,16 @@
             #,parse-tree)))
 
 (module+ reader 
-    (provide read-syntax))
+    (provide read-syntax get-info))
+
+(define (get-info port 
+        src-mod 
+        src-line 
+        src-col 
+        src-pos)
+    (define (handle-query key default)
+        (case key
+            [(color-lexer)
+                (dynamic-require 'basic/colorer 'basic-colorer)]
+            [else default]))
+    handle-query)
