@@ -29,7 +29,13 @@
         "<>"
         "and"
         "or"
-        "not"))
+        "not"
+        "gosub"
+        "return"
+        "for"
+        "to"
+        "step"
+        "next"))
 
 (define basic-lexer
     (lexer-srcloc

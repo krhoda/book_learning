@@ -20,6 +20,10 @@ b-line : b-line-num [b-statement] (/":" [b-statement])* [b-rem]
     | b-let 
     | b-input
     | b-if
+    | b-gosub 
+    | b-return
+    | b-for 
+    | b-next
 
 b-rem : REM
 b-end : /"end"
@@ -34,6 +38,10 @@ b-if : /"if" b-expr
     [/"else" (b-statement | b-expr)]
 
 @b-id : ID
+b-gosub : /"gosub" b-expr
+b-return : /"return"
+b-for /"for" b-id /"=" b-expr /"to" b-expr [/"step" b-expr]
+b-next : /"next" b-id
 
 ;;; NOTE: Trippy cascading order of operations here.
 ;;; By matching outward in, and making operators optional,
@@ -50,7 +58,9 @@ b-product : [b-product ("*"|"/"|"mod")] b-neg
 b-neg : ["-"] b-expt
 b-expt : [b-expt "^"] b-value
 
-@b-value : b-number | b-id | /"(" b-expr /")"
+@b-value : b-number 
+    | b-id 
+    | /"(" b-expr /")"
 @b-number : INTEGER | DECIMAL
 
 
