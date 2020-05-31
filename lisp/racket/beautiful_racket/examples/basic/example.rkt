@@ -7,3 +7,5 @@
 70 goto 11. + 18.5 + .5 rem 'ignored'
 10 print "o" ; "n" ; "e"
 20 print : goto 60.0 : end
+11 print "Uncomment line no. 5 to test err reporting!"
+5 rem goto 1001010
