@@ -25,6 +25,7 @@ b-line : b-line-num [b-statement] (/":" [b-statement])* [b-rem]
     | b-for 
     | b-next
     | b-def
+    | b-import
 
 b-rem : REM
 b-end : /"end"
@@ -44,6 +45,8 @@ b-return : /"return"
 b-for : /"for" b-id /"=" b-expr /"to" b-expr [/"step" b-expr]
 b-next : /"next" b-id
 b-def : /"def" b-id /"(" b-id [/"," b-id] /")" /"=" b-expr
+b-import: /"import" b-import-name
+@b-import-name : RACKET-ID | STRING
 
 ;;; NOTE: Trippy cascading order of operations here.
 ;;; By matching outward in, and making operators optional,
@@ -54,6 +57,7 @@ b-or-expr : [b-or-expr "or"] b-and-expr
 b-and-expr : [b-and-expr "and"] b-not-expr
 b-not-expr : ["not"] b-comp-expr
 b-comp-expr : [b-comp-expr ("="|"<"|">"|"<>")] b-sum
+
 ;;; Continues into numerical usage of the above trickery.
 b-sum : [b-sum ("+"|"-")] b-product
 b-product : [b-product ("*"|"/"|"mod")] b-neg
@@ -64,7 +68,7 @@ b-expt : [b-expt "^"] b-value
     | b-id 
     | /"(" b-expr /")"
     | b-func
-b-func : ID /"(" b-expr [/"," b-expr]* /")"
+b-func : (ID | RACKET-ID) /"(" b-expr [/"," b-expr]* /")"
 @b-number : INTEGER | DECIMAL
 
 
