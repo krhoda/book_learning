@@ -1,5 +1,6 @@
 #lang br
-(provide b-expr b-sum b-product b-neg b-expt)
+(require "line.rkt")
+(provide b-expr b-sum b-product b-neg b-expt b-def b-func)
 
 (define (b-expr expr)
     (if (integer? expr) 
@@ -24,3 +25,17 @@
 (define-macro-cases b-expt
     [(_ VAL) #'VAL]
     [(_ LEFT "^" RIGHT) #'(expt LEFT RIGHT)])
+
+(define-macro (b-def FUNC-ID VAR-ID ... EXPR)
+    (syntax-local-lift-expression
+        #'(set! FUNC-ID (lambda (VAR-ID ...) EXPR))))
+
+;;; TODO: WORK FROM HERE
+(define-macro (b-func FUNC-ID ARG ...)
+    #'(if 
+        (procedure? FUNC-ID)
+        (FUNC-ID ARG ...)
+        (raise-line-error 
+            (format "expected ~a to be a function got ~v"
+                    'FUNC-ID
+                    FUNC-ID))))

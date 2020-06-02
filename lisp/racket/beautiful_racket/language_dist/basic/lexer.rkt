@@ -35,7 +35,9 @@
         "for"
         "to"
         "step"
-        "next"))
+        "next"
+        "def"
+        ","))
 
 (define basic-lexer
     (lexer-srcloc

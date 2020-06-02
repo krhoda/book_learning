@@ -11,13 +11,13 @@
 
 (define (b-gosub num-expr)
     (let/cc here-cc
-        (push! return-ccs here-ccs)
+        (push! return-ccs here-cc)
         (b-goto num-expr)))
 
 (define (b-return)
-    (when (empty? return-css)
+    (when (empty? return-ccs)
         (raise-line-error "return without gosub"))
-    (define top-cc (pop! return-css))
+    (define top-cc (pop! return-ccs))
     (top-cc (void)))
 
 ;;; LOOP-ID->loop-cc allowing next to call for and on and on.
