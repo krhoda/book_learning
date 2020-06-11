@@ -1,4 +1,4 @@
-#lang basic-demo-3
+#lang basic
 10 import [math/number-theory]
 20 print [nth-prime](15)
 30 print [prime?](24)
