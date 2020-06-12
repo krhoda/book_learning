@@ -42,7 +42,8 @@
         "next"
         "def"
         ","
-        "import"))
+        "import"
+        "export"))
 
 (define basic-lexer
     (lexer-srcloc

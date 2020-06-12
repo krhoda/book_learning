@@ -26,6 +26,7 @@ b-line : b-line-num [b-statement] (/":" [b-statement])* [b-rem]
     | b-next
     | b-def
     | b-import
+    | b-export
 
 b-rem : REM
 b-end : /"end"
@@ -47,6 +48,9 @@ b-next : /"next" b-id
 b-def : /"def" b-id /"(" b-id [/"," b-id] /")" /"=" b-expr
 b-import: /"import" b-import-name
 @b-import-name : RACKET-ID | STRING
+
+b-export : /"export" b-export-name
+@b-export-name: ID
 
 ;;; NOTE: Trippy cascading order of operations here.
 ;;; By matching outward in, and making operators optional,
