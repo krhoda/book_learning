@@ -86,6 +86,12 @@ The classic mind-expanding [MIT Text](https://web.mit.edu/alexmv/6.037/sicp.pdf)
 
 I know, I know, it's supposed to be written in `scheme`, but `racket` provides a wonderful language module specifically to complete this book -- and `racket` was already installed on my machine. Woefully incomplete, but I've watched the [MIT companion lectures](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/video-lectures/) and highly recommend those as well!
 
+#### Common Lisp
+##### Let over Lambda
+After discovering that this beloved technique had a name, and that name was shared with [a text](https://letoverlambda.com/) that acted deep dive on macros, I knew what I had to do.
+
+Currently unstarted.
+
 ### Rust
 To run any Rust project, install Rust as described [here](https://www.rust-lang.org/tools/install). 
 
@@ -100,6 +106,14 @@ A long journey, but clear enough (if going in knowing `haskell`, that is).
 
 Complete. Every chapter contains notes and working examples.
 
+#### The Complete Rust Programming Reference Guide
+From what I've found, [this](https://www.packtpub.com/application-development/complete-rust-programming-reference-guide) best comprehensive, general purpose intermediate Rust Guide to follow the book which comes with the language.
+
+Currently working through, but expecting to find:
+* Deeper examination of traits and closures.
+* Additional information and examples of macros.
+* Performance concerned algorithmic implementations and techniques.
+
 #### The Rustnomicon
 Coming soon, [The Rustonomicon](https://doc.rust-lang.org/nomicon/). Less for the `unsafe` powers, but more for a deeper understanding of the innerworking of the language, and the basis for the `concurrent`/`paralellism` models of the language.
 
@@ -113,3 +127,15 @@ Recommended if you have a strong interest in WebAssembly, this is still the best
 To that end, I strong suggest taking a look at [wasm-pack](https://github.com/rustwasm/wasm-pack) before getting too deep into part 2 -- it's very nice.
 
 These examples are not easy to run.
+
+### Haskell
+
+#### Thinking Functionally With Haskell
+[The spiritual successor](https://www.cambridge.org/core/books/thinking-functionally-with-haskell/79F91D976F0C7229082325B41824EBBC#fndtn-information) to the [classic](https://www.goodreads.com/book/show/3791460-introduction-to-functional-programming) text on functional programming. 
+
+Really, I just wanted an excuse to solve exercises in Haskell. Will update with details of the subject matter as I discover it.
+
+### Prolog
+
+#### The Art of Prolog (2nd Edition)
+I don't know what Prolog is, but it comes with the recomendations of some of the greatest minds in programming. [Here](https://mitpress.mit.edu/books/art-prolog-second-edition) is a free book that is also loved and beloved.
