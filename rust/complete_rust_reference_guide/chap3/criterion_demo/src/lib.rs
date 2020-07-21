@@ -7,7 +7,7 @@ pub fn slow_fib(nth: usize) -> u64 {
 }
 
 pub fn fast_fib(nth: usize) -> u64 {
-    let mut (a, b, c) = (0, 1, 0);
+    let (mut a, mut b, mut c) = (0, 1, 0);
     for _ in 1..nth {
         c = a + b;
         a = b;
