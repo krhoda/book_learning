@@ -1,7 +1,7 @@
 # Book Learning 
 ## A collection of project/sample code in many languages from many books for many purposes.
 
-#### Not listed, but still loved:
+#### No code included in this repo, but still loved:
 #### General 
 [Game Programming Patterns](https://gameprogrammingpatterns.com/) a very readable pattern book that critically evaulates, selects, and applies patterns to specific, real-world problems. The examples are focused on games (quite enjoyably) but the concepts are widely applicable.
 
