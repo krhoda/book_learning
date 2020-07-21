@@ -53,6 +53,13 @@ You could also `$ go install` but the binary executable will be quite a mouthful
 
 Incomplete, but exercises are demo'd interactively!
 
+### Haskell
+
+#### Thinking Functionally With Haskell
+[The spiritual successor](https://www.cambridge.org/core/books/thinking-functionally-with-haskell/79F91D976F0C7229082325B41824EBBC#fndtn-information) to the [classic](https://www.goodreads.com/book/show/3791460-introduction-to-functional-programming) text on functional programming. 
+
+Really, I just wanted an excuse to solve exercises in Haskell. Will update with details of the subject matter as I discover it.
+
 ### Lisp 
 #### Clojure
 Coming soon, [Clojure for the Brave and True](https://www.braveclojure.com/clojure-for-the-brave-and-true/)
@@ -92,6 +99,11 @@ After discovering that this beloved technique had a name, and that name was shar
 
 Currently unstarted.
 
+### Prolog
+
+#### The Art of Prolog (2nd Edition)
+I don't know what Prolog is, but it comes with the recomendations of some of the greatest minds in programming. [Here](https://mitpress.mit.edu/books/art-prolog-second-edition) is a free book that is also loved and beloved.
+
 ### Rust
 To run any Rust project, install Rust as described [here](https://www.rust-lang.org/tools/install). 
 
@@ -127,15 +139,3 @@ Recommended if you have a strong interest in WebAssembly, this is still the best
 To that end, I strong suggest taking a look at [wasm-pack](https://github.com/rustwasm/wasm-pack) before getting too deep into part 2 -- it's very nice.
 
 These examples are not easy to run.
-
-### Haskell
-
-#### Thinking Functionally With Haskell
-[The spiritual successor](https://www.cambridge.org/core/books/thinking-functionally-with-haskell/79F91D976F0C7229082325B41824EBBC#fndtn-information) to the [classic](https://www.goodreads.com/book/show/3791460-introduction-to-functional-programming) text on functional programming. 
-
-Really, I just wanted an excuse to solve exercises in Haskell. Will update with details of the subject matter as I discover it.
-
-### Prolog
-
-#### The Art of Prolog (2nd Edition)
-I don't know what Prolog is, but it comes with the recomendations of some of the greatest minds in programming. [Here](https://mitpress.mit.edu/books/art-prolog-second-edition) is a free book that is also loved and beloved.
