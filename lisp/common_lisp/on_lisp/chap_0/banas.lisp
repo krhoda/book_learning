@@ -367,9 +367,7 @@
 (format t "Removed dog from table... ~%")
 (maphash #'(lambda (k v) (format t "~a = ~a ~%" k v)) pups)
 
-
 ;;; Structs
-
 (defstruct customer name address favorite-color)
 (defparameter paulsmith (make-customer
 				 :name "Paul Smith"
@@ -378,3 +376,15 @@
 
 (format t "~a ~%" (customer-name paulsmith))
 (format t "~a ~%" (customer-favorite-color paulsmith))
+(setf (customer-favorite-color paulsmith) "Teal")
+(format t "~a ~%" (customer-favorite-color paulsmith))
+(write paulsmith)
+
+(with-open-file (my-stream "test.txt" :direction :output :if-exists :supersede)
+  (print "Some Random Text" my-stream))
+
+(let ((in (open "test.txt" :if-does-not-exist nil)))
+  (when in
+	(loop for line = (read-line in nil)
+		  while line do (format t "~a~%" line))
+	(close in)))
