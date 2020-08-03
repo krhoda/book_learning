@@ -13,18 +13,19 @@
 ### Alphabetic breakdown by language family:
 
 ### BEAM Languages
-#### Elixir
-Coming soon, [Elixir in Action](https://www.manning.com/books/elixir-in-action-second-edition)
 
 #### Erlang
 ##### hello_joe
 Joe Armstrong's [Programming In Erlang](https://pragprog.com/book/jaerlang2/programming-erlang)
 
-Amazingly productive exercises, beginning with a file server and layering complexity from there.
+Amazingly productive exercises, beginning with a file server and layering complexity from there. Highly recommended.
 
 All contents are `.erl` files and can be interacted with via the instructions found [here](http://erlang.org/documentation/doc-5.3/doc/getting_started/getting_started.html).
 
 Incomplete, chapters vary between notes and exercises.
+
+#### Elixir
+Coming soon, [Elixir in Action](https://www.manning.com/books/elixir-in-action-second-edition)
 
 ### Golang
 ##### Allen Downey's Little Book of Semaphores using Golang Select, Channels, and WaitGroups
@@ -61,8 +62,21 @@ Incomplete, but exercises are demo'd interactively!
 Really, I just wanted an excuse to solve exercises in Haskell. Will update with details of the subject matter as I discover it.
 
 ### Lisp 
+
+#### Common Lisp
+##### On Lisp
+Paul Graham's freely available [book-length elaboration](https://sep.yimg.com/ty/cdn/paulgraham/onlisp.pdf) of his [famous essay](http://www.paulgraham.com/avg.html). The below text "Let over Lambda" suggests reading "On Lisp" as primer before that material, and being aware of Graham's thinking, I was quite interested. Includes a comprehesive exploration of production-grade Lisp with no small emphasis on macros, and laser focus on leveraging Lisp's ability to transition cleaniy from data to code and back again. After throughly enjoying Beautiful Racket, the promise of embedding Prolog in Lisp was an added bonus. 
+
+In progress, so far very good.
+
+##### Let over Lambda
+After discovering that this beloved technique had a name, and that name was shared with [a book](https://letoverlambda.com/) on advanced macros, I knew what I had to do.
+
+Currently unstarted, as it recommended On Lisp as a predecessor.
+
+
 #### Clojure
-Coming soon, [Clojure for the Brave and True](https://www.braveclojure.com/clojure-for-the-brave-and-true/)
+Coming soon, [Clojure for the Brave and True](https://www.braveclojure.com/clojure-for-the-brave-and-true/) because [Arcadia](https://github.com/arcadia-unity/Arcadia) looks so cool!
 
 #### Racket
 ##### Beautiful Racket
@@ -79,7 +93,7 @@ cd beautiful_racket/laugauge_dist/<language_name>
 raco pkg install
 ```
 
-Then feel free to run/modify the `example.rkt` files in the coresponding `beautiful_racke/examples` language directory.
+Then feel free to run/modify the `example.rkt` files in the coresponding `beautiful_racket/examples` language directory.
 
 ##### How To Design Programs
 A modern and excellent approach to teaching [programming from the ground up](https://htdp.org/). 
@@ -92,17 +106,6 @@ Incomplete, hard to run/read without DrRacket, but I'll build out that virtual p
 The classic mind-expanding [MIT Text](https://web.mit.edu/alexmv/6.037/sicp.pdf). 
 
 I know, I know, it's supposed to be written in `scheme`, but `racket` provides a wonderful language module specifically to complete this book -- and `racket` was already installed on my machine. Woefully incomplete, but I've watched the [MIT companion lectures](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/video-lectures/) and highly recommend those as well!
-
-#### Common Lisp
-##### On Lisp
-Paul Graham's freely available [book-length elaboration](https://sep.yimg.com/ty/cdn/paulgraham/onlisp.pdf) of his [famous essay](http://www.paulgraham.com/avg.html). The below text "Let over Lambda" suggests reading "On Lisp" as primer before that material, and being aware of Graham's thinking, I was quite interested. Includes a comprehesive exploration of production-grade Lisp with no small emphasis on macros, and laser focus on leveraging Lisp's ability to transition cleaniy from data to code and back again. After throughly enjoying Beautiful Racket, the promise of embedding Prolog in Lisp was an added bonus. 
-
-In progress, so far very good.
-
-##### Let over Lambda
-After discovering that this beloved technique had a name, and that name was shared with [a book](https://letoverlambda.com/) on advanced macros, I knew what I had to do.
-
-Currently unstarted, as it recommended On Lisp as a predecessor.
 
 ### Prolog
 
