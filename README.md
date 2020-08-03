@@ -1,7 +1,7 @@
 # Book Learning 
 ## A collection of project/sample code in many languages from many books for many purposes.
 
-#### No code included in this repo, but still loved:
+### Not represented in this repo, but still loved:
 #### General 
 [Game Programming Patterns](https://gameprogrammingpatterns.com/) a very readable pattern book that critically evaulates, selects, and applies patterns to specific, real-world problems. The examples are focused on games (quite enjoyably) but the concepts are widely applicable.
 
@@ -94,10 +94,15 @@ The classic mind-expanding [MIT Text](https://web.mit.edu/alexmv/6.037/sicp.pdf)
 I know, I know, it's supposed to be written in `scheme`, but `racket` provides a wonderful language module specifically to complete this book -- and `racket` was already installed on my machine. Woefully incomplete, but I've watched the [MIT companion lectures](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/video-lectures/) and highly recommend those as well!
 
 #### Common Lisp
-##### Let over Lambda
-After discovering that this beloved technique had a name, and that name was shared with [a text](https://letoverlambda.com/) that acted deep dive on macros, I knew what I had to do.
+##### On Lisp
+Paul Graham's freely available [book-length elaboration](https://sep.yimg.com/ty/cdn/paulgraham/onlisp.pdf) of his [famous essay](http://www.paulgraham.com/avg.html). The below text "Let over Lambda" suggests reading "On Lisp" as primer before that material, and being aware of Graham's thinking, I was quite interested. Includes a comprehesive exploration of production-grade Lisp with no small emphasis on macros, and laser focus on leveraging Lisp's ability to transition cleaniy from data to code and back again. After throughly enjoying Beautiful Racket, the promise of embedding Prolog in Lisp was an added bonus. 
 
-Currently unstarted.
+In progress, so far very good.
+
+##### Let over Lambda
+After discovering that this beloved technique had a name, and that name was shared with [a book](https://letoverlambda.com/) on advanced macros, I knew what I had to do.
+
+Currently unstarted, as it recommended On Lisp as a predecessor.
 
 ### Prolog
 
