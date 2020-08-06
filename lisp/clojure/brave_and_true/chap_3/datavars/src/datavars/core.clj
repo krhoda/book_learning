@@ -177,3 +177,149 @@
 (illustrative-function)
 
 ;; lambda got turned into fn
+(map (fn [name] (str "Hi, " name)) ["Phil Wadler" "Simon P. Jones"])
+((fn [x] (* x 3)) 8)
+
+;; They can be named
+;; also, def gives you a var.
+(def special-multiplier (fn [x] (* x 3)))
+(special-multiplier 8)
+
+;; They can also be completely hideous
+;; the % reminds me of call/cc though
+(#(* % 3) 8)
+
+(map #(str "Hi, " %)
+     ["Rob Pike" "Dennis Ritchie"])
+
+;; % can be suffixed:
+;; with numbers...
+(#(str %1 " and " %2) "puppies" "crias")
+
+;; ...and rest
+(#(identity %&) [1 2 3])
+
+(defn inc-maker
+  "Create a custom incrementor"
+  [inc-by]
+  #(+ % inc-by))
+
+(def inc3 (inc-maker 3))
+
+(inc3 7)
+
+;;; Hobbit non-sense.
+;; C + P data structure:
+(def asym-hobbit-body-parts [{:name "head" :size 3}
+                             {:name "left-eye" :size 1}
+                             {:name "left-ear" :size 1}
+                             {:name "mouth" :size 1}
+                             {:name "nose" :size 1}
+                             {:name "neck" :size 2}
+                             {:name "left-shoulder" :size 3}
+                             {:name "left-upper-arm" :size 3}
+                             {:name "chest" :size 10}
+                             {:name "back" :size 10}
+                             {:name "left-forearm" :size 3}
+                             {:name "abdomen" :size 6}
+                             {:name "left-kidney" :size 1}
+                             {:name "left-hand" :size 2}
+                             {:name "left-knee" :size 2}
+                             {:name "left-thigh" :size 4}
+                             {:name "left-lower-leg" :size 3}
+                             {:name "left-achilles" :size 1}
+                             {:name "left-foot" :size 2}])
+
+(defn matching-part
+  [part]
+  ;; #"str" denotes Regex
+  {:name (clojure.string/replace (:name part) #"^left-" "right-")
+   :size (:size part)})
+
+(defn symmetrize-body-parts
+  "expects a seq of maps with :name and :size"
+  [asym-body-parts]
+  (loop [remaining-asym-parts asym-body-parts
+         final-body-parts []]
+    (if (empty? remaining-asym-parts)
+      final-body-parts
+      (let [[part & remaining] remaining-asym-parts]
+        (recur remaining
+               ;; into seems to conj these results on final body parts
+               (into final-body-parts
+                     (set [part (matching-part part)])))))))
+
+(symmetrize-body-parts asym-hobbit-body-parts)
+;; x is 0 in the global scope
+(def x 0)
+;; x is zero in the local scope, is returned to be assigned
+;; (let [x 1] x)
+
+;; inc is called on the global scope x, and is stored in the `let` x.
+(let [x (inc x)] x)
+
+;; loop and recur are complimentary peices.
+(loop [iteration 0]
+  (println (str "Iteration " iteration))
+  (if (> iteration 3)
+    (println "Goodbye!")
+        (recur (inc iteration))))
+
+;; Regex find
+(re-find #"^left-" "left-eye")
+(re-find #"^left-" "cleft-chin")
+
+(reduce + [1 2 3])
+(reduce + 1000 [1 2 3])
+
+(defn better-symmetrize-body-parts
+  "'ere we go 'ere we go"
+  [asym-body-parts]
+  (reduce (fn [final-body-parts part]
+            (into final-body-parts
+                  (set [part (matching-part part)])))
+          []
+          asym-body-parts))
+
+(better-symmetrize-body-parts asym-hobbit-body-parts)
+
+(defn hit
+  [asym-body-parts]
+  (let [sym-parts (better-symmetrize-body-parts asym-body-parts)
+        body-part-size-sum (reduce + (map :size sym-parts))
+        target (rand body-part-size-sum)]
+    (loop [[part & remaining] sym-parts
+           accumlated-size (:size part)]
+      (if (> accumlated-size target)
+        part
+        (recur remaining (+ accumlated-size (:size (first remaining))))))))
+
+;; Eval to see what part of the hobbit was hit.
+;; Non-deterministic, if the `rand` didn't give it away.
+(hit asym-hobbit-body-parts)
+
+;;; EXERCISES:
+;; 1) use the str / vector / list / hash-map / hash-set funcs.
+;; 1A: Will do over time.
+;; 2) Write a function that takes a number and adds 100 to it
+(defn plus-100
+  "You have a number, but what if it were 100 bigger?"
+  [x]
+  (+ 100 x))
+
+(plus-100 6)
+;; 3) Write a function dec-maker, like inc-maker but reverse
+(defn dec-maker
+  "Custom decrementing in the palm of your hand"
+  [x]
+  #(- % x))
+
+(def dec9 (dec-maker 9))
+(dec9 10)
+
+(def minus-100 (dec-maker 100))
+(minus-100 (plus-100 6))
+
+;; 4) write mapset, map but it returns a set.
+(defn mapset
+  (func lst))
