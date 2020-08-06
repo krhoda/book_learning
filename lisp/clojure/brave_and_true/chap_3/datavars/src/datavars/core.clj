@@ -121,3 +121,59 @@
 (defn codger
   [& whipersnappers]
   (map codger-comm whipersnappers))
+(codger "pascal" "raskell" "haskell")
+
+;;; manditory and rest vars
+(defn favorite-things
+  [name & things]
+  (str "Hi, " name ", here are my favorite things: "
+       (clojure.string/join ", " things)))
+
+;; destructuring
+(def our-first [[first-thing]] first-thing)
+
+;; destructuring with rest
+(defn chooser
+  [[first-choice second-choice & unimportant-choices]]
+  (println (str "Your first choice is: " first-choice))
+  (println (str "Your second choice is: " second-choice))
+  (println (str "We're ignoring the rest of your choices. "
+                "Here they are in case you need to cry over them: "
+                (clojure.string/join ", " unimportant-choices))))
+
+(chooser ["Marmalade", "Handsome Jack", "Pigpen", "Aquaman"])
+
+;; pluck keys
+(defn announce-treasure-loc
+  [{lat :lat lng :lng}]
+  (println (str "Treasure lat: " lat))
+  (println (str "Treasure lng: " lng)))
+
+(announce-treasure-loc {:lat 25 :lng 34})
+
+;; using :keys keyword
+(defn announce-treasure-loc2
+  [{:keys [lat lng]}]
+  (println (str "Treasure lat: " lat))
+  (println (str "Treasure lng: " lng)))
+
+(announce-treasure-loc2 {:lat 22 :lng 33})
+
+;; maintaining a ref to the whole.
+(defn recv-treasure-loc
+  [{:keys [lat lng] :as treasure-location}]
+  (println (str "Treasure lat: " lat))
+  (println (str "Treasure lng: " lng))
+  (println (str "Full loc: " treasure-location)))
+
+(recv-treasure-loc {:lat 22 :lng 33})
+
+;; Last val in form is return
+(defn illustrative-function
+  []
+  (+ 1 304)
+  30
+    "joe")
+(illustrative-function)
+
+;; lambda got turned into fn
