@@ -26,8 +26,8 @@
   ;; and returns last truthy or first falsey
   (and :puppy :dog) ; => :dog
   (and :puppy :dog nil :paw) ; => nil
-  (::error-message :mild)
-  (::error-message :puppy)
+  ;; (::error-message :mild)
+  ;; (::error-message :puppy)
   )
 
 (defn error-message
@@ -322,4 +322,37 @@
 
 ;; 4) write mapset, map but it returns a set.
 (defn mapset
-  (func lst))
+  "Map but gives you a set"
+  [func lst]
+  (reduce (fn
+            [next-set elm]
+            (conj next-set (func elm)))
+          #{}
+          lst))
+
+(mapset identity '(1 2 3 3))
+(mapset inc '(1 2 3 3))
+;; 5) Symmetrize Body Parts but it is HC'd to 5, skipping favor of ...
+;; 6) Symmeterize body part but it's variadic!
+(defn gen-match-part-once
+  [part regex num]
+  {:name (clojure.string/replace (:name part) regex (str (+ num 1)))})
+
+(defn gen-more-parts
+  [part regex total-iter acc]
+  (loop [next-iter total-iter
+         next-acc acc]
+    (if (<= next-iter 0)
+      next-acc
+      (recur (- next-iter 1)
+             (into next-acc (set [(gen-match-part-once part regex next-iter)]))))))
+
+
+(gen-more-parts {:name "1-leg"} #"^1-" 8 [])
+
+(def asym-spider-parts [{:name "head" :size 1}
+                        {:name "1-leg" :size 6}])
+(defn gen-symmeterize-body-parts
+  [parts regex total]
+  (print "SOMETHING"))
+(gen-symmeterize-body-parts asym-spider-parts #"^1-" 8)
