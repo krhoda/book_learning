@@ -1,0 +1,1 @@
+(parameterize ([optimize-level 3]) (compile-program "/home/kdr/magic/proj/book_learning/idris/crash_course_idris/chap_0/build/exec/hello_app/hello.ss"))
