@@ -24,10 +24,7 @@
   ;; (setq x (list 'a 'b 'c)) => (A B C)
   ;; (shiftf (cadr x) 'z) => B
   ;; x => (A Z C)
-  remf ;
-  ;;
-  remprop
-  ;;
-  remhash
-  ;;
+  remf ;; Remove first matching property in place from property list
+  remprop ;; Remove all matching properties in place from property list
+  remhash ;; Remove value at given key from hash table.
   )
