@@ -170,3 +170,67 @@
 		  (if (funcall fn obj wins)
 			  (setq wins obj)))
 		wins)))
+
+(defun mostn (fn lst)
+  (if (null lst)
+	  (values nil nil)
+	  (let ((result (list (car lst)))
+			(max (funcall fn (car lst))))
+		(dolist (obj (cdr lst))
+		  (let ((score (funcall fn obj)))
+			(cond ((> score max)
+				   (setq max score
+						 result (list obj)))
+				  ((= score max)
+				   (push obj result)))))
+		(values (nreverse result) max))))
+
+;;; Mapping
+;;; Over an arbitrary range with an optional step param.
+(defun mapa-b (fn a b &optional (step 1))
+  (do ((i a (+ i step))
+	   (result nil))
+	  ((> i b) (nreverse result))
+	(push (funcall fn i) result)))
+
+;;; The range over naturals
+(defun map0-n (fn n)
+  (mapa-b fn 0 n))
+
+;;; The range over integers
+(defun map1-n (fn n)
+  (mapa-b fn 1 n))
+
+;; This appears to be a manual map where succ-fn is called to get the next result
+;; and test-fn is used to kill the result.
+(defun map-> (fn start test-fn succ-fn)
+  (do ((i start (funcall succ-fn i))
+	   (result nil))
+	  ((funcall test-fn i) (nreverse result))
+	(push (funcall fn i) result)))
+
+;;; mapa-b in terms of map->
+;;; (lambda
+;;;   (fn a b & optional (step 1))
+;;;   (map-> fn a #'(lambda (x) (> x b)) #'(lambda (x) (+ x step))))
+
+;; Look up mapcat o understand this better
+(defun mappend (fn &rest lsts)
+  (apply #'append (apply #'mapcar fn lsts)))
+
+;; (mapcars (lambda (x) (+ x x)) '(1 2 3) '(4 5)) => (2 3 6 8 10)
+(defun mapcars (fn &rest lsts)
+  (let ((result nil))
+	(dolist (lst lsts)
+	  (dolist (obj lst)
+		(push (funcall fn obj) result)))
+	(nreverse result)))
+
+;;(rmapcar #'+ '(1 2 (3)) '(2 1 (3))) => (3 3 (6))
+(defun rmapcar (fn &rest args)
+  (if (some #'atom args)
+	  (apply fn args)
+	  (apply #'mapcar
+			 #'(lambda (&rest args)
+				 (apply #'rmapcar fn args))
+			 args)))

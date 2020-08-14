@@ -1,4 +1,7 @@
 module Chap1 where
+import qualified Data.Map as Map
+import qualified Data.List as List
+import qualified Data.Char as Char
 
 -- TODO: Impl commonWords
 -- commonWords :: Int -> [Char] -> [Char]
@@ -81,7 +84,17 @@ convertThousands n
     where (t, h) = digits2 n 1000 
 
 
--- -- anagrams takes a word-length, a list of words, and constructs an anagram page out of them.
--- anagrams :: Int -> [String] -> String
--- anagrams targetLen strList = map (\x -> x) l
---     where l = filter (\x -> (targetLen==(length x))) strList
+-- anagrams takes a string and constructs an anagram dictionary page out of them.
+anagrams :: String -> Map.Map String [String]
+anagrams input = anagramsInner (words  (map Char.toLower input)) Map.empty
+
+anagramsInner :: [String] -> Map.Map String [String] -> Map.Map String [String]
+anagramsInner [] m = m
+anagramsInner (x:xs) m = anagramsInner xs next
+  where (_, next) =  Map.insertLookupWithKey anagramInsert (List.sort x) [x] m
+
+anagramInsert :: String -> [String] -> [String] -> [String]
+anagramInsert _ new old = new ++ old
+
+testStr :: [Char]
+testStr = "The gods of dogs made dame rats a star"
