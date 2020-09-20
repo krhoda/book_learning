@@ -1,4 +1,4 @@
-trait Playble {
+pub trait Playable {
     fn play(&self);
 
     fn pause() {

@@ -10,6 +10,37 @@ impl<T> GenStruct<T> {
     }
 }
 
+trait Vehicle {
+    fn get_price(&self) -> u64;
+}
+
+trait Car: Vehicle {
+    fn model(&self) -> String;
+}
+
+struct FordPinto {
+    model: String,
+    is_safe: bool
+}
+
+impl FordPinto {
+    fn new(model: &str) -> Self {
+        Self { model: model.to_string(), is_safe: false }
+    }
+}
+
+impl Vehicle for FordPinto {
+    fn get_price(&self) -> u64 {
+        2
+    }
+}
+
+impl Car for FordPinto {
+    fn model(&self) -> String {
+        self.model.clone()
+    }
+}
+
 fn main() {
     let a = "generics";
     let b = 1024;
@@ -27,4 +58,12 @@ fn main() {
 
     // or using turbofish
     let v3 = Vec::<u8>::new();    // not so readable
+
+    let my_pinto = FordPinto::new("Ford Pinto Mk.1");
+    println!(
+        "{} is priced at ${}, is that even safe? {}",
+        my_pinto.model(), 
+        my_pinto.get_price(),
+        my_pinto.is_safe
+    )
 }
