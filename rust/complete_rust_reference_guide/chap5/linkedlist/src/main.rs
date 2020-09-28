@@ -1,6 +1,6 @@
 use std::rc::Rc;
 use std::rc::Weak;
-use std::cell::RefCell;
+use std::cell::{Cell, RefCell};
 
 #[derive(Debug)]
 struct LinkedList<T> {
@@ -48,11 +48,33 @@ impl<T> LinkedList<T> {
     }
 }
 
+// Interior mutability
+
+#[derive(Debug)]
+struct Bag {
+    item: Box<u32>
+}
+
 fn main() {
     let list_of_nums = LinkedList::new().append(1).append(2).append(3);
     let list_of_strs = LinkedList::new().append("I").append("II").append("III");
     println!("Hello, world!");
 
     println!("Nums: {:?}", list_of_nums);
-    println!("Strs: {:?}", list_of_strs)
+    println!("Strs: {:?}", list_of_strs);
+
+    let bag = RefCell::new(Bag { item: Box::new(1) });
+    let hand1 = &bag;
+    let hand2 = &bag;
+    *hand1.borrow_mut() = Bag { item: Box::new(2) };
+    {
+        let borrowed_1 = bag.borrow();
+        println!("{:?}", borrowed_1);
+        // Note: calling drop(borrowed_1) in the outer scope
+        // causes &bag to be dropped entirely.
+        // letting borrow_1 hit the end of a scope works though.
+    }
+    *hand2.borrow_mut() = Bag { item: Box::new(3) };
+    let borrowed_2 = bag.borrow();
+    println!("{:?}", borrowed_2);
 }
