@@ -74,7 +74,7 @@ mod tests {
 
     #[test]
     fn complex_display() {
-        let my_im =Complex::new(111, 222);
+        let my_im = Complex::new(111, 222);
         println!("{}", my_im);
     }
 }
