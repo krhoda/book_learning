@@ -19,6 +19,51 @@ fn main() {
         println!("{}", i);
     }
 
+    let mut a = String::from("Yo");
+    // Type Fn
+    let fn_closure = || {
+        println!("Using var by ref {}", a);
+    };
+
+    fn_closure();
+    println!("Var is still in outer scope {}", a);
+
+    // Type FnMut
+    let mut fn_mut_closure = || {
+        a.push_str("lo");
+    };
+
+    fn_mut_closure();
+    println!("Var in outer scope after mut closure {}", a);
+
+    // Type FnOnce
+    let consume = |x: String| {
+        println!("Moving and dropping {}", x)
+    };
+
+    consume(a);
+    // a is now dropped.
+    
+    let c_one = Circle { rad: 4.2 };
+    let c_two = Circle { rad: 75.2 };
+    // Usage of nested Consts:
+    println!("Area of circle one: {}", c_one.area());
+    println!("Area of circle two: {}", c_two.area());
+}
+
+trait Circular {
+    const PI: f64 = 3.14;
+    fn area(&self) -> f64;
+}
+
+struct Circle {
+    rad: f64
+}
+
+impl Circular for Circle {
+    fn area(&self) -> f64 {
+        Circle::PI * self.rad * self.rad
+    }
 }
 
 struct Primes {
