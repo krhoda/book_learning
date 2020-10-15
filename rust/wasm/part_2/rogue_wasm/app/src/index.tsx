@@ -9,4 +9,6 @@ function Greeting(): Element {
   return <div>Hello world</div>;
 };
 
-renderer.render(<Greeting />, appContainer);
+if (appContainer) {
+  renderer.render(<Greeting />, appContainer);
+}
