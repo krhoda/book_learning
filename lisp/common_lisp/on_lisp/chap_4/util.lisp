@@ -27,9 +27,8 @@
 	(if (and (listp x) (listp y))
 		;; start comparison
 		(compare x y)
-		;; determine which is a list...?
+		;; select which ever one is the list
 		(> (length x) (length y)))))
-		;; why not: (if (listp x) T nil))))
 
 ;;; Build list out of filter fn which returns the val it compares against.
 ;;; Quite imperative, I assume for speed's sake.
@@ -202,7 +201,7 @@
   (mapa-b fn 1 n))
 
 ;; This appears to be a manual map where succ-fn is called to get the next result
-;; and test-fn is used to kill the result.
+;; and test-fn is used to end the iteration.
 (defun map-> (fn start test-fn succ-fn)
   (do ((i start (funcall succ-fn i))
 	   (result nil))
@@ -214,7 +213,7 @@
 ;;;   (fn a b & optional (step 1))
 ;;;   (map-> fn a #'(lambda (x) (> x b)) #'(lambda (x) (+ x step))))
 
-;; Look up mapcat o understand this better
+;; Look up mapcat to understand this better
 (defun mappend (fn &rest lsts)
   (apply #'append (apply #'mapcar fn lsts)))
 
@@ -254,3 +253,30 @@
 	  (if (funcall quit in)
 		  (return)
 		  (format *query-io* "~A~%" (funcall fn in))))))
+
+;;; Symbols and Strings
+
+;;; (mkstr 'ar "Madi" #\L #\L 0) => "ARMadiLL0"
+(defun mkstr (&rest args)
+  (with-output-to-string (s)
+	(dolist (a args) (princ a s))))
+
+;;; (symb 'ar "Madi" #\L #\L 0) => |ARMadiLL0|
+(defun symb (&rest args)
+  (values (intern (apply #'mkstr args))))
+
+;;; Reads twice to attain uniformity of symbol:
+;;; (reread 'ar "Madi" #\L #\L 0) => ARMADILL0
+(defun reread (&rest args)
+  (values (read-from-string (apply #'mkstr args))))
+
+;;; Breaks symbol into composite symbols
+;;; Pretty inefficient, avoid in production.
+;;; (explode 'pie) => (P I E)
+(defun explode (sym)
+  (map 'list #'(lambda (c)
+				 (intern (make-string
+						  1
+						  :initial-element
+						  c)))
+	   (symbol-name sym)))
