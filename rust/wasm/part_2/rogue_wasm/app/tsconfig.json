@@ -18,6 +18,6 @@
         "jsx": "react"
     },
     "include": [
-        "./src/**/*"
+        "./src/**/*", "../wasm-functions"
     ],
 }

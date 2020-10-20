@@ -20,9 +20,7 @@ then
 fi
 
 # The Real Deal
-cd wasm-functions
+cd ../app/src/wasm-functions
 wasm-pack build
-cd ../workers
-npm i && npx webpack --config webpack.config.js
-cd ../app
+cd ../../
 npm i && npm run build

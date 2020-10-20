@@ -5,7 +5,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(ts|js)x?$/,
+        // test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -17,12 +17,24 @@ module.exports = {
             ]
           }
         }
+      },
+      {
+        test: /\.wasm$/,
+        type: 'javascript/auto',
+        use: [
+          {
+            loader: 'webassembly-loader',
+            options: {
+              export: 'module'
+            }
+          }
+        ]
       }
     ]
   },
 
   resolve: {
-    extensions: ['.tsx', '.ts', '.js']
+    extensions: ['.tsx', '.ts', '.js', '.wasm']
   },
 
   output: {

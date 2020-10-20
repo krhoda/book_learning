@@ -12,8 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@bikeshaving/crank": "^0.3.6",
-    "post-buffer": "0.0.2",
-    "workers": "file:../workers"
+    "rot-js": "^2.1.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.0",
@@ -36,7 +35,8 @@
     "prettier": "^2.1.2",
     "ts-loader": "^8.0.5",
     "typescript": "^4.0.3",
-    "webpack": "^5.1.0",
+    "webassembly-loader": "^1.1.0",
+    "webpack": "^4.44.2",
     "webpack-cli": "^4.0.0",
     "webpack-dev-server": "^3.11.0"
   }

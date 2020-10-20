@@ -1,30 +1,16 @@
 /** @jsx createElement */
 import { Children, Context, createElement, Element } from '@bikeshaving/crank';
 import { renderer } from '@bikeshaving/crank/dom';
-import * as pb from 'post-buffer';
+import * as ROT from 'rot-js';
 
-import { makeEchoWorker } from 'workers';
+import { Engine } from '../../wasm-functions/pkg/wasm_functions_bg.js';
 
 const appContainer = document.getElementById('app');
-const worker = makeEchoWorker();
+const display = new ROT.Display();
+const engine = new Engine(display);
 
-function* Greeting(
-  this: Context,
-  { name }: { name: string }
-): Generator<Element> {
-  let handler = (e: Event) => {
-    e.preventDefault();
-
-    let [success, err] = pb.postBuffer({ hello: 'world' }, worker);
-    if (!success) {
-      console.error(`${err}`);
-    }
-  };
-
-  while (true) {
-    yield (<button onclick={handler}>Hello {name}</button>);
-  }
-}
+console.log("!!!");
+console.log(engine);
 
 function App(): Element {
   let sideprops = { hitpoints: 0, moves: 0 };
@@ -34,7 +20,7 @@ function App(): Element {
         <Header></Header>
       </div>
       <div className="row">
-        <Main></Main>
+        <Main display={display}></Main>
         <Side {...sideprops}></Side>
       </div>
     </div>
@@ -49,8 +35,22 @@ function Header(): Element {
   );
 }
 
-function Main(): Element {
-  return <div className="row-cell main">Will be the main panel</div>;
+function Main({ display }: { display: ROT.Display }): Element {
+  let targetID = 'main-panel';
+
+  setTimeout(() => {
+    let target = document.getElementById(targetID);
+    if (target) {
+      let dispElm = display.getContainer();
+      if (dispElm) {
+        target.appendChild(dispElm);
+      }
+      // TODO: could throw err here.
+    }
+    // TODO: could throw err here.
+  }, 1000);
+
+  return <div className="row-cell main" id={targetID}></div>;
 }
 
 function Side({
