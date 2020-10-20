@@ -1,12 +1,12 @@
-import Echo from "./src/echo.worker.js";
-import Greeter from "./src/wasm_greet.worker"
+import Echo from './src/echo.worker';
+import Greeter from './src/wasm_greet.worker';
 
 function makeEchoWorker() {
-    return new Echo();
+  return new Echo();
 }
 
 function makeGreeterWorker() {
-    return new Greeter();
+  return new Greeter();
 }
 
-export {makeEchoWorker, makeGreeterWorker};
+export { makeEchoWorker, makeGreeterWorker };

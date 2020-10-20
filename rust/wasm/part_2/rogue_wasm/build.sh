@@ -24,5 +24,5 @@ cd wasm-functions
 wasm-pack build
 cd ../workers
 npm i && npx webpack --config webpack.config.js
-cd ../target-app
+cd ../app
 npm i && npm run build

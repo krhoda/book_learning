@@ -1,0 +1,15 @@
+.row {
+    display: flex;
+}
+
+.row-cell {
+    flex: 1;
+}
+
+.header-text {
+    text-align: center;
+}
+
+.stats {
+    padding: 15px;
+}

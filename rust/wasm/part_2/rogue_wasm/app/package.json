@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "npx webpack --config webpack.config.js",
     "start": "webpack-dev-server --mode development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@bikeshaving/crank": "^0.3.6",
+    "post-buffer": "0.0.2",
     "workers": "file:../workers"
   },
   "devDependencies": {
