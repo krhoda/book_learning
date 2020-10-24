@@ -226,10 +226,104 @@ lst-two ; => (1 2 4) WHATS WRONG WITH DELETE-IF???
 ; Paul Graham's style would upset Peter Norvig.
 (eq x (car (copy-list listx))) ;; => t
 
+;; copy-tree casts to tree, thus:
 (eq x (car (copy-tree listx))) ;; => nil
 
-(defun our-copy-tree (tree)
+;; I don't know why this is nil
+(eq (copy-tree x) (car (copy-tree listx))) ;; => nil
+
+
+(defun count-leaves (tree)
   (if (atom tree)
+	  1
+	  (+ (count-leaves (car tree))
+		 (or (if (cdr tree)
+				 (count-leaves (cdr tree)))
+			 1))))
+;; count-leaves will count nils at the end of lists
+(count-leaves '((a b (c d)) (e) f)) ; => 10
+
+(nconc '(1 2) '(3 4) '(5 (6))) ; => (1 2 3 4 5 (6))
+
+;; At some point, figure out how to import this fellow from chap_4/util
+(defparameter local-mklist #'(lambda (x) (if (listp x) x (list x))))
+
+(defun slow-tree-flatten (tree)
+  (if (atom tree)
+	  (funcall local-mklist tree)
+	  (nconc (slow-tree-flatten (car tree))
+			 (if (cdr tree) (slow-tree-flatten (cdr tree))))))
+
+(slow-tree-flatten (copy-tree '(A B C (D E (F)))))
+
+(defun rfind-if (fn tree)
+  (if (atom tree)
+	  ;; this 'and seems to reject nils.
+	  (and (funcall fn tree) tree)
+	  (or (rfind-if fn (car tree))
+		  (if (cdr tree)
+			  (rfind-if fn (cdr tree))))))
+
+(rfind-if (fun-ix #'numberp #'oddp) '(2 (3 4) 5)) ; => 3, because it is a depth first search.
+
+(defun our-copy-tree (tree)
+  "A demonstration of a common pattern"
+  ;; Predicate:
+  (if (atom tree)
+	  ;; Base case:
 	  tree
+	  ;; Recursion:
 	  (cons (our-copy-tree (car tree))
 			(if (cdr tree) (our-copy-tree (cdr tree))))))
+
+(defun tree-traverser (rec &optional (base #'identity))
+  (labels ((self (tree)
+			 ;; if the tree is a singlton
+			 (if (atom tree)
+				 ;; if a base was provided
+				 (if (functionp base)
+					 ;; use it,
+					 (funcall base tree)
+					 ;; if not, return it.
+					 base)
+				 ;; if tree is a structure call the recurser on the result of
+				 ;; of the recursion of this function
+				 (funcall rec (self (car tree))
+						  ;; either way, test the tree for continued existence
+						  (if (cdr tree)
+							  ;; if so, recurse only with this function.
+							  (self (cdr tree)))))))
+	#'self))
+
+(defvar our-copy-tree-2 (tree-traverser #'cons))
+(defvar our-count-leaves (tree-traverser #'(lambda (elm rec) (+ elm (or rec 1))) 1))
+(funcall our-count-leaves '((a b (c d)) (e) f)) ; => 10
+
+(defvar sloth-flatten (tree-traverser #'nconc local-mklist))
+(funcall sloth-flatten (copy-tree '(A B C (D E (F)))))
+
+(defun tree-rec (rec &optional (base #'identity))
+  (labels
+	  ((self (tree)
+		 (if (atom tree)
+			 ;; handle the base case appropriately.
+			 (if (functionp base)
+				 (funcall base tree)
+				 base)
+			 ;; call the recurser on the left and right portions of the tree.
+			 (funcall rec tree
+					  #'(lambda ()
+						  (self (car tree)))
+					  #'(lambda ()
+						  (if (cdr tree)
+							  (self (cdr tree))))))))
+	#'self))
+
+(defvar rec-flatten (tree-rec #'(lambda (current left right)
+								  (nconc (funcall left) (funcall right)))
+							  local-mklist))
+
+(funcall rec-flatten (copy-tree '((A B) C (D E (F)))))
+
+;; To get comp-time evalutaion -- take that Zig!
+(find-if #. (compose #'oddp #'truncate) '(0 2 1))
