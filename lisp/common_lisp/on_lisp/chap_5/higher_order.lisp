@@ -102,7 +102,7 @@ lst-two ; => (1 2 4) WHATS WRONG WITH DELETE-IF???
 				(vcute pup)))
 		puppies)
 ; lets define this quite goofily:
-(setq puppies '(1 2 3 4 5))
+(defvar puppies '(1 2 3 4 5))
 (defun spotted (x) (oddp x))
 (defun adorable (x) (print "ADORABLE"))
 (defun vcute (x) (print "V CUTE"))
@@ -212,11 +212,24 @@ lst-two ; => (1 2 4) WHATS WRONG WITH DELETE-IF???
 (defun illogical-and (fn)
   (list-rec
    #'(lambda (elm rec) (and (funcall fn elm) (funcall rec)))
-   ;; Note the T to avoid flying into the nil end-of-the-list and saying
+   ;; Note the T to avoid flying into the nil-end-of-the-list and saying
    ;; all is false.
    t))
 
 (defvar oddand (illogical-and #'oddp))
-
 (funcall oddand puppies)
 (funcall oddand '(3 5 7))
+
+(setq x '(a b)
+	  listx (list x 1))
+
+; Paul Graham's style would upset Peter Norvig.
+(eq x (car (copy-list listx))) ;; => t
+
+(eq x (car (copy-tree listx))) ;; => nil
+
+(defun our-copy-tree (tree)
+  (if (atom tree)
+	  tree
+	  (cons (our-copy-tree (car tree))
+			(if (cdr tree) (our-copy-tree (cdr tree))))))
