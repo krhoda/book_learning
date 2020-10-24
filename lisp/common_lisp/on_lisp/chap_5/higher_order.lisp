@@ -180,19 +180,43 @@ lst-two ; => (1 2 4) WHATS WRONG WITH DELETE-IF???
 (funcall better-every-odd puppies)
 (funcall better-every-odd '(1 3 5))
 
-(setq cpy-list
-	  (list-rec #'(lambda (elm f) (cons x (funcall f)))))
+(defvar cpy-list
+	  (list-rec #'(lambda (elm f) (cons elm (funcall f)))))
 
-(setq rmv-dups
+(funcall cpy-list puppies)
+
+(defvar rmv-dups
 	  (list-rec
-	   #'(lambda (elm f) (adjoin x (funcall f)))))
+	   #'(lambda (elm f) (adjoin elm (funcall f)))))
 
-(setq find-if-so
-	  (list-rec
-	   #'(lambda (elm f) (if (fn x) x (funcall f)))))
+(funcall rmv-dups '(1 0 2 0 3)) ; => (1 2 0 3) -- Lisp goes backwards by default it seems.
 
-(setq some-fun
-	  (list-rec
-	   #'(lambda (elm f) (or (fn x) (funcall f)))))
+;; Time to riff a little
+(defun find-if-so (fn)
+  (list-rec
+   #'(lambda (elm rec) (if (funcall fn elm) elm (funcall rec)))))
 
-;; TODO: test, left off on PG 70.
+(defvar find-if-even (find-if-so #'evenp))
+
+(funcall find-if-even puppies)
+
+(defun illogical-or (fn)
+  (list-rec
+   #'(lambda (elm rec) (or (funcall fn elm) (funcall rec)))))
+
+(defvar oddor (illogical-or #'oddp))
+
+(funcall oddor puppies)
+(funcall oddor '(0 2 4))
+
+(defun illogical-and (fn)
+  (list-rec
+   #'(lambda (elm rec) (and (funcall fn elm) (funcall rec)))
+   ;; Note the T to avoid flying into the nil end-of-the-list and saying
+   ;; all is false.
+   t))
+
+(defvar oddand (illogical-and #'oddp))
+
+(funcall oddand puppies)
+(funcall oddand '(3 5 7))
