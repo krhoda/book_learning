@@ -5,17 +5,25 @@ macro_rules! hello {
     };
 }
 
+// #[macro_export]
+// macro_rules! make_list {
+//     ($($v:tt),*) => {
+//         {
+//             let mut str_vec = vec!["<ul>".to_string()];
+//             $(
+//                 str_vec.push(format!("<li>{}</li>", $v));
+//             )*
+//             str_vec.push("</ul>".to_string());
+//             str_vec.join("")
+//         }
+//     }
+// }
 #[macro_export]
 macro_rules! make_list {
-    ($($v:tt),*) => {
-        {
-            let mut str_vec = vec!["<ul>".to_string()];
-            $(
-                str_vec.push(format!("<li>{}</li>", $v));
-            )*
-            str_vec.push("</ul>".to_string());
-            str_vec.join("")
-        }
+    ($($v:literal),*) => {
+        concat!("<ul>",
+                $( "<li>", $v, "</li>", )*
+                "</ul>")
     }
 }
 
