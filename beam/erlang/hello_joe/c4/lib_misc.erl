@@ -1,6 +1,6 @@
 -module(lib_misc).
 
--export([for/3, qsort/1, odd_even_acc/1, my_tuple_to_list/1]).
+-export([for/3, qsort/1, odd_even_acc/1, my_tuple_to_list/1, demo_try/0]).
 
 -import(lists, [reverse/1, sum/1]).
 
@@ -19,9 +19,7 @@ my_tuple_to_list(T) ->
 qsort([]) ->
     [];
 qsort([Pivot | T]) ->
-    qsort([X || X <- T, X < Pivot]) 
-    ++ [Pivot] ++ 
-    qsort([X || X <- T, X >= Pivot]).
+    qsort([X || X <- T, X < Pivot]) ++ [Pivot] ++ qsort([X || X <- T, X >= Pivot]).
 
 odd_even_acc(L) ->
     oe_acc(L, [], []).
@@ -36,3 +34,20 @@ oe_acc([H | T], Odds, Evens) ->
 oe_acc([], Odds, Evens) ->
     {reverse(Odds), reverse(Evens)}.
 
+gen_ex(1) -> a;
+gen_ex(2) -> throw(a);
+gen_ex(3) -> exit(a);
+gen_ex(4) -> {'EXIT', a};
+gen_ex(5) -> error(a).
+
+demo_try() ->
+    [catcher(I) || I <- [1,2,3,4,5]].
+
+catcher(N) ->
+    try gen_ex(N) of
+        Val -> {N, normal, Val}
+    catch
+        throw:X -> {N, caught, thrown, X};
+        exit:X -> {N, caught, thrown, X};
+        error:X -> {N, caught, thrown, X}
+    end.
