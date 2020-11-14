@@ -1,0 +1,12 @@
+[package]
+name = "my_app"
+version = "0.1.0"
+authors = ["K Rhoda <kelseydrhoda@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+log = {version = "0.4.6", features = ["release_max_level_trace", "max_level_trace"]}
+my_lib = { path = "../my_lib" }
+log4rs = "0.13.0"
