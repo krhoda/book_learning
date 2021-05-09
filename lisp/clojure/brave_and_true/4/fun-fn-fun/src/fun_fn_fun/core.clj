@@ -108,8 +108,6 @@
 
 (my-map inc [111 222 333])
 
-;; TODO: Impl filter and some in terms of reduce here:
-
 (def z-ints [1 2 3 4 5 6 7 8 9 10])
 
 (defn my-filter
@@ -131,7 +129,7 @@
    nil
    org))
 
-(my-some even? z-ints)
+(my-some odd? z-ints)
 (my-some #(< 100 %) z-ints)
 
 (take 3 z-ints)
@@ -178,3 +176,144 @@
 (concat [1 2] [3 4])
 (concat '(1 2) '(3 4))
 (concat [1 2] '(3 4))
+
+;; Seqs are lazy. Here's a contrived way to prove that:
+(def vampire-database
+  {0 {:makes-blood-puns? false, :has-pulse? true  :name "McFishwich"}
+   1 {:makes-blood-puns? false, :has-pulse? true  :name "McMackson"}
+   2 {:makes-blood-puns? true,  :has-pulse? false :name "Damon Salvatore"}
+   3 {:makes-blood-puns? true,  :has-pulse? true  :name "Mickey Mouse"}})
+
+(defn vampire-related-details
+  [social-security-number]
+  (Thread/sleep 1000)
+  (get vampire-database social-security-number))
+
+(defn vampire?
+  [record]
+  (and (:makes-blood-puns? record)
+       (not (:has-pulse? record))
+       record))
+
+(defn identify-vampire
+  [social-security-numbers]
+  (first (filter vampire?
+                 (map vampire-related-details social-security-numbers))))
+
+;; Show the sleep by timing the func
+;; Time prints in REPL.
+(time (vampire-related-details 0))
+
+;; This takes no time until the details are acutally accessed
+(time (def mapped-details (map vampire-related-details (range 0 1000000))))
+
+;; This will take ~32 seconds while Clojure realizes some of the next elms in the sequence.
+(time (first mapped-details))
+
+;; This will also take ~32 seconds.
+(time (identify-vampire (range 0 1000000)))
+
+;; Infinite sequences
+;; repeat, make infinite
+(concat (take 8 (repeat "na")) ["BATMAN!"])
+;; repeatedly, make infinite using generator fn
+(take 3 (repeatedly (fn [] (rand-int 10))))
+
+(defn even-nats
+  ([] (even-nats 0))
+  ([n] (cons n (lazy-seq (even-nats (+ n 2))))))
+
+(take 10 (even-nats))
+
+;; seq is an abscraction over many values
+;; collection is an abstraction over the whole
+
+(empty? [])
+(empty? ["No!"])
+(empty? {})
+(empty? {:some "thing"})
+(empty? '())
+(empty? '("car" '("cdr")))
+
+;; into has some interesting properties
+;; Obvious:
+(into [] (map identity '(:clove :clove)))
+;; When using sets, things may get collapsed:
+(into #{} (map identity '(:clove :clove)))
+;; Can be used to merge structures, like Object.assign in JS
+(into {:favorite-color "green"} [[:favorite-food "cabbage"]])
+(into ["cherry"] '("pine" "spruce"))
+;; JS style over-writing
+(into {:a "1" :b "two"} {:a "one" :c "three"})
+
+;; conj assumes the first arg is the data structure, the second is value
+;; nesting, rather than flattening
+(conj ["car"] ["cdr"])
+;; As expected
+(conj ["first"] "second")
+;; Variadic
+(conj [1] 2 3 4 5)
+
+(defn my-conj
+  [target & additions]
+  (into target additions))
+
+(my-conj ["car"] ["cdr"])
+(my-conj ["first"] "second")
+(my-conj [1] 2 3 4 5)
+
+;; apply and partial:
+;; Expected
+(max 1 2 3)
+;; Inconvienent
+(max [1 2 3])
+;; "explodes" the vector.
+(apply max [1 2 3])
+
+;; To reverse it all
+(defn my-into
+  [target additions]
+  (apply conj target additions))
+
+(my-into [] (map identity '(:clove :clove)))
+(my-into #{} (map identity '(:clove :clove)))
+(my-into {:favorite-color "green"} [[:favorite-food "cabbage"]])
+(my-into ["cherry"] '("pine" "spruce"))
+(my-into {:a "1" :b "two"} {:a "one" :c "three"})
+
+;; partial gives more options for currying
+
+(def add10 (partial + 10))
+(add10 3)
+
+(def add-missing-elements
+  (partial conj ["water" "earth" "air"]))
+
+(add-missing-elements "metal" "fire")
+
+(defn my-partial
+  [partialized-fn & args]
+  (fn [& more-args]
+    (apply partialized-fn (into args more-args))))
+
+(def add20 (my-partial + 20))
+(add20 1)
+
+;; Complement is the longest way to spell "!"
+(def not-vampire? (complement vampire?))
+
+(defn identify-humans
+  [social-security-numbers]
+  (filter not-vampire?
+          (map vampire-related-details social-security-numbers)))
+
+(identify-humans (range 0 10))
+
+(defn my-complement
+  [f]
+  (fn [& args]
+    (not (apply f args))))
+
+(def my-pos? (my-complement neg?))
+(my-pos? 1)
+(my-pos? -1)
