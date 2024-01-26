@@ -1,7 +1,7 @@
 defmodule Fraction do
   defstruct a: nil, b: nil
 
-  def new(a, 0) do
+  def new(_, 0) do
     # SOMETHING!
   end
 
@@ -9,7 +9,7 @@ defmodule Fraction do
     %Fraction{a: a, b: b}
   end
 
-  def value(%Fraction{a: a, b: 0}) do
+  def value(%Fraction{a: _, b: 0}) do
     # SOMETHING!
   end
 
@@ -30,3 +30,6 @@ end
 # This doesn't:
 # %Fraction{} = faux_fract
 # one_quarter = %Fraction{ a: 1, b: 4 } = %Fraction{one_half | b: 4}
+# NOTE: this does work, though!
+# %{a: a, b: b} = %Fraction{ a: 1, b: 2 }
+# Structs are all Maps, all Maps are not Structs.
