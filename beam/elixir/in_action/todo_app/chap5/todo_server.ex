@@ -1,16 +1,3 @@
-# Dupe of "todo-multi_dict.ex"
-defmodule MultiDict do
-  def new(), do: %{}
-
-  def add_entry(dict, key, value) do
-    Map.update(dict, key, [value], &[value | &1])
-  end
-
-  def entries(dict, key) do
-    Map.get(dict, key, [])
-  end
-end
-
 defmodule TodoList do
   defstruct auto_id: 1, entries: %{}
 
@@ -62,26 +49,55 @@ defmodule TodoList do
   end
 end
 
-defmodule TodoList.CsvImporter do
-  def import(path) do
-    File.stream!(path)
-    |> Stream.map(&String.replace(&1, "\n", ""))
-    |> Stream.map(&String.split(&1, ","))
-    |> Stream.map(fn [date, title] -> [String.replace(date, "/", "-"), title] end)
-    |> Enum.map(fn [date, title] -> %{date: Date.from_iso8601(date), title: title} end)
-    |> TodoList.new()
-  end
-end
-
-defimpl Collectable, for: TodoList do
-  def into(original) do
-    {original, &into_callback/2}
+defmodule TodoServer do
+  def start do
+    spawn(fn -> loop(TodoList.new()) end)
   end
 
-  defp into_callback(todo_list, {:cont, entry}) do
-    TodoList.add_entry(todo_list, entry)
+  defp loop(todo_list) do
+    next =
+      receive do
+        m -> process_message(todo_list, m)
+      end
+
+    loop(next)
   end
 
-  defp into_callback(todo_list, :done), do: todo_list
-  defp into_callback(todo_list, :halt), do: :ok
+  def add_entry(todo_server, new_entry) do
+    send(todo_server, {:add_entry, new_entry})
+  end
+
+  def update_entry(todo_server, new_entry, updater) do
+    send(todo_server, {:update_entry, new_entry, updater})
+  end
+
+  def delete_entry(todo_server, new_entry) do
+    send(todo_server, {:delete_entry, new_entry})
+  end
+
+  def get_entries(todo_server) do
+    send(todo_server, {:get_entries, self()})
+
+    receive do
+      {:response, entries} -> entries
+    after
+      5000 -> {:error, :timeout}
+    end
+  end
+
+  defp process_message(todo_list, {:add_entry, new_entry}) do
+    TodoList.add_entry(todo_list, new_entry)
+  end
+
+  defp process_message(todo_list, {:update_entry, new_entry, updater}) do
+    TodoList.update_entry(todo_list, new_entry.id, updater)
+  end
+
+  defp process_message(todo_list, {:delete_entry, new_entry}) do
+    TodoList.delete_entry(todo_list, new_entry.id)
+  end
+
+  defp process_message(todo_list, {:get_entries, caller_pid}) do
+	send(caller_pid, {:response, todo_list})
+  end
 end
