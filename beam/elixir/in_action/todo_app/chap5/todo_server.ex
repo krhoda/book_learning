@@ -45,7 +45,7 @@ defmodule TodoList do
   end
 
   def delete_entry(todo_list, entry_id) do
-    Map.delete(todo_list.entries, entry_id)
+    %TodoList{todo_list | entries: Map.delete(todo_list.entries, entry_id)}
   end
 end
 
@@ -75,8 +75,18 @@ defmodule TodoServer do
     send(todo_server, {:delete_entry, new_entry})
   end
 
-  def get_entries(todo_server) do
-    send(todo_server, {:get_entries, self()})
+  def get_todo_list(todo_server) do
+    send(todo_server, {:get_todo_list, self()})
+
+    receive do
+      {:response, todo_list} -> todo_list
+    after
+      5000 -> {:error, :timeout}
+    end
+  end
+
+  def entries(todo_server, date) do
+    send(todo_server, {:entries, self(), date})
 
     receive do
       {:response, entries} -> entries
@@ -97,7 +107,13 @@ defmodule TodoServer do
     TodoList.delete_entry(todo_list, new_entry.id)
   end
 
-  defp process_message(todo_list, {:get_entries, caller_pid}) do
+  defp process_message(todo_list, {:entries, caller_pid, date}) do
+	send(caller_pid, {:response, TodoList.entries(todo_list, date)})
+	todo_list
+  end
+
+  defp process_message(todo_list, {:get_todo_list, caller_pid}) do
 	send(caller_pid, {:response, todo_list})
+	todo_list
   end
 end
