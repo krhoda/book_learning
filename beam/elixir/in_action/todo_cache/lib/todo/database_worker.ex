@@ -20,7 +20,8 @@ defmodule Todo.DatabaseWorker do
 
   @impl GenServer
   def handle_cast({:store, key, data}, state) do
-    file_name(state, key)
+	state
+    |> file_name(key)
     |> File.write!(:erlang.term_to_binary(data))
 
     {:noreply, state}
