@@ -14,21 +14,26 @@ defmodule Todo.MixProject do
   def application do
     [
       extra_applications: [
-		:logger,
-		:observer,
-		:runtime_tools,
-		:wx
-	  ],
+        :logger,
+        :observer,
+        :runtime_tools,
+        :wx
+      ],
       mod: {Todo.Application, []}
     ]
   end
 
   defp deps do
     [
-	  {:poolboy, "~> 1.5"},
-	  # {:cowboy, "~> 1.1"},
-	  # {:plug, "~> 1.4"},
-	  {:plug_cowboy, "~> 2.6"},
-	]
+      {:poolboy, "~> 1.5"},
+      {:plug_cowboy, "~> 2.6"}
+      # {:distillery, "~> 2.0"}
+    ]
+  end
+
+  def cli do
+    [
+      preferred_envs: [release: :prod]
+    ]
   end
 end
