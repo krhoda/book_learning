@@ -7,31 +7,26 @@ defmodule Todo.Web do
   def child_spec(_) do
     Plug.Cowboy.child_spec(
       scheme: :http,
-      options: [port: 5454],
+      options: [port: Application.fetch_env!(:todo, :http_port)],
       plug: __MODULE__
     )
   end
 
   get "/entries" do
-	IO.puts("In Entries")
     conn = Plug.Conn.fetch_query_params(conn)
     list_name = Map.fetch!(conn.params, "list")
     date = Date.from_iso8601!(Map.fetch!(conn.params, "date"))
 
-	IO.puts("I")
     entries =
       list_name
       |> Todo.Cache.server_process()
       |> Todo.Server.entries(date)
 
-	IO.puts("II")
     formatted_entries =
       entries
       |> Enum.map(&"#{&1.date} #{&1.title}")
       |> Enum.join("\n")
 
-	IO.puts("III")
-	IO.puts(formatted_entries)
     conn
     |> Plug.Conn.put_resp_content_type("text/plain")
     |> Plug.Conn.send_resp(200, formatted_entries)
